@@ -11,4 +11,24 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Player routes with custom stat actions
+  resources :players do
+    member do
+      post :two_point
+      post :three_point
+      post :free_throw
+      post :rebound
+      post :turnover
+      post :block
+      post :steal
+      post :undo
+    end
+
+    collection do
+      post :reset
+    end
+  end
+
+  root "players#index"
 end

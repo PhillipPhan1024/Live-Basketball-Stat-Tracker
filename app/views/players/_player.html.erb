@@ -1,0 +1,45 @@
+<div id="<%= dom_id(player) %>" class="player">
+  <h3><%= player.name %> — <%= player.points %> PTS</h3>
+
+  <p>
+    FG: <%= player.fgm %>/<%= player.fga %> |
+    3PT: <%= player.three_pm %>/<%= player.three_pa %> |
+    FT: <%= player.ftm %>/<%= player.fta %>
+  </p>
+
+  <p>
+    REB: <%= player.rebounds %> |
+    TO: <%= player.turnovers %>
+    BLK: <%= player.blocks %> |
+    STL: <%= player.steals %>
+  </p>
+  
+
+<div class="buttons stat-buttons">
+  <%= button_to "2PT ✔", two_point_player_path(player, made: true), method: :post %>
+  <%= button_to "2PT ✘", two_point_player_path(player, made: false), method: :post %>
+
+  <%= button_to "3PT ✔", three_point_player_path(player, made: true), method: :post %>
+  <%= button_to "3PT ✘", three_point_player_path(player, made: false), method: :post %>
+
+  <%= button_to "FT ✔", free_throw_player_path(player, made: true), method: :post %>
+  <%= button_to "FT ✘", free_throw_player_path(player, made: false), method: :post %>
+
+  <%= button_to "REB", rebound_player_path(player), method: :post %>
+  <%= button_to "TO", turnover_player_path(player), method: :post %>
+
+  <%= button_to "BLK", block_player_path(player), method: :post %>
+  <%= button_to "STL", steal_player_path(player), method: :post %>
+
+  <%= button_to "↩ Undo", undo_player_path(player), method: :post %>
+</div>
+
+<div class="player-actions">
+  <%= button_to "Remove Player",
+    player_path(player),
+    method: :delete,
+    data: { turbo_confirm: "Remove #{player.name}?" } %>
+</div>
+
+
+</div>

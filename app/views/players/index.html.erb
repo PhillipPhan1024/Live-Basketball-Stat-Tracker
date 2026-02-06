@@ -1,0 +1,14 @@
+<h1>Live Stat Tracker</h1>
+
+<div class="controls">
+  <%= button_to "Add Player", new_player_path, method: :get %>
+
+  <%= button_to "Reset Game",
+    reset_players_path,
+    method: :post,
+    data: { turbo_confirm: "Reset all Game?" } %>
+</div>
+
+<%= turbo_stream_from "players" %>
+
+<%= render "players/players", players: @players %>
