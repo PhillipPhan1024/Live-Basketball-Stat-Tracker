@@ -8,13 +8,6 @@ class Player < ApplicationRecord
 
   before_create :set_public_id
 
-  after_update_commit -> {
-    broadcast_replace_to "players",
-      target: dom_id(self),
-      partial: "players/player",
-      locals: { player: self }
-  }
-
   private
 
   def set_public_id
@@ -191,22 +184,6 @@ class Player < ApplicationRecord
         group_id: gid
       )
 
-      self.last_action_gid = gid
-      save!
-    end
-  end
-
-  def record_steal
-    gid = SecureRandom.uuid
-    transaction do
-      StatEvent.create!(
-        player: self,
-        action: "steals",
-        value: 1,
-        group_id: gid
-      )
-
-      self.steals += 1
       self.last_action_gid = gid
       save!
     end

@@ -11,4 +11,6 @@
 
 <%= turbo_stream_from "players" %>
 
-<%= render "players/players", players: @players %>
+div id="players">
+  <%= render "players/players", players: @players %>
+</div>
