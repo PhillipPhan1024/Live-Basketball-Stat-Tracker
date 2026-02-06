@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_06_041357) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_06_070948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,12 +24,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_06_041357) do
     t.string "last_action_gid"
     t.string "name", null: false
     t.integer "points", default: 0
+    t.string "public_id"
     t.integer "rebounds", default: 0
     t.integer "steals", default: 0
     t.integer "three_pa", default: 0
     t.integer "three_pm", default: 0
     t.integer "turnovers", default: 0
     t.datetime "updated_at", null: false
+    t.index ["public_id"], name: "index_players_on_public_id", unique: true
   end
 
   create_table "stat_events", force: :cascade do |t|

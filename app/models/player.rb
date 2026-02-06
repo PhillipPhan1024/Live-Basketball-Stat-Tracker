@@ -6,12 +6,22 @@ class Player < ApplicationRecord
   has_many :stat_events, dependent: :destroy
   validates :name, presence: true
 
+  before_create :set_public_id
+
   after_update_commit -> {
     broadcast_replace_to "players",
       target: dom_id(self),
       partial: "players/player",
       locals: { player: self }
   }
+
+  private
+
+  def set_public_id
+    self.public_id ||= SecureRandom.uuid
+  end
+
+  public
 
   # 2PT shot
   def attempt_two(made:)
